@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { Splat, OrbitControls } from "@react-three/drei";
+import { Splat, FirstPersonControls } from "@react-three/drei";
 import React, { useState } from "react";
 
 import './App.css';
@@ -16,22 +16,23 @@ export default function App() {
   return (
     <>
       <div className="title"></div>
-      <Canvas style={{ width: "50vw", height: "50vh" }}>
+      <Canvas style={{ width: "100vw", height: "100vh" }}>
         {/* Add lighting for the scene */}
         <ambientLight intensity={0.5} />
         <pointLight position={[2, 2, 2]} intensity={1} />
 
-        <OrbitControls
-          maxDistance={5.5}
-          minDistance={0.3}
-          maxPolarAngle={Math.PI * 10.75}
-          minPolarAngle={Math.PI * 0.25}
-          minAzimuthAngle={Math.PI * 10.75}
-          maxAzimuthAngle={Math.PI * 2.25}
+        {/* Replace OrbitControls with FirstPersonControls */}
+        <FirstPersonControls
+          movementSpeed={2}  // Speed of movement
+          lookSpeed={0.1}    // Speed of looking around
         />
+
         <Splat
-          src="https://huggingface.co/datasets/runes/coolsplats/resolve/main/output.splat"
-          rotation={[0.55 * Math.PI, 0.01 * Math.PI, 1.25 * Math.PI]}
+          src="bonsai.splat"
+          rotation={[0.8 * Math.PI, 0.01 * Math.PI, 1.25 * Math.PI]}
+          scale={0.1}
+          chunkSize={1}
+          alphaTest={0.1}
         />
         {/* Add a clickable cube with random rotation */}
         <mesh position={[0, 0, 0.2]} rotation={rotation} onClick={changeRotation}>
